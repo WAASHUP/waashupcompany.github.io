@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WAASHUP — Premium Residential Car Care</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Montserrat:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8D5A3;
+    --gold-dark: #8C6A20;
+    --charcoal: #1A1A1A;
+    --off-black: #0D0D0D;
+    --cream: #F5F0E8;
+    --cream-dark: #EDE6D6;
+    --white: #FFFFFF;
+    --gray-mid: #888880;
+    --gray-light: #CCCCCC;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Montserrat', sans-serif; background: var(--off-black); color: var(--cream); overflow-x: hidden; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.5rem 5%;
+    background: linear-gradient(to bottom, rgba(13,13,13,0.95), transparent);
+    backdrop-filter: blur(4px);
+  }
+  .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 600; letter-spacing: 0.15em; color: var(--gold); }
+  .logo span { color: var(--cream); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--cream); text-decoration: none; opacity: 0.8; transition: opacity 0.3s, color 0.3s; }
+  .nav-links a:hover { opacity: 1; color: var(--gold); }
+  .nav-cta { background: var(--gold); color: var(--off-black); padding: 0.6rem 1.6rem; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700; text-decoration: none; transition: background 0.3s; }
+  .nav-cta:hover { background: var(--gold-light); }
+
+  .hero {
+    min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: flex-start;
+    padding: 10rem 5% 6rem;
+    position: relative; overflow: hidden;
+    background: var(--off-black);
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 70% 50%, rgba(201,168,76,0.08) 0%, transparent 60%),
+                radial-gradient(ellipse at 20% 80%, rgba(201,168,76,0.05) 0%, transparent 50%);
+  }
+  .hero-line {
+    position: absolute; top: 0; right: 15%; width: 1px; height: 100%;
+    background: linear-gradient(to bottom, transparent, rgba(201,168,76,0.3), transparent);
+  }
+  .hero-eyebrow { font-size: 0.65rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; }
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif; font-size: clamp(3.5rem, 8vw, 7rem); font-weight: 300; line-height: 1.05;
+    color: var(--cream); max-width: 700px; margin-bottom: 2rem;
+  }
+  .hero h1 em { font-style: italic; color: var(--gold); }
+  .hero-sub { font-size: 0.8rem; letter-spacing: 0.1em; color: var(--gray-mid); max-width: 420px; line-height: 2; margin-bottom: 3rem; font-weight: 300; }
+  .hero-actions { display: flex; gap: 1.5rem; align-items: center; }
+  .btn-primary { background: var(--gold); color: var(--off-black); padding: 1rem 2.5rem; font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; font-weight: 700; text-decoration: none; transition: all 0.3s; }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+  .btn-ghost { color: var(--cream); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; opacity: 0.7; transition: opacity 0.3s; border-bottom: 1px solid rgba(201,168,76,0.4); padding-bottom: 2px; }
+  .btn-ghost:hover { opacity: 1; }
+  .hero-badge {
+    position: absolute; right: 6%; bottom: 15%;
+    width: 130px; height: 130px; border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.3);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center;
+    animation: rotate 20s linear infinite;
+  }
+  @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  .hero-badge-inner { animation: rotate-reverse 20s linear infinite; }
+  @keyframes rotate-reverse { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
+  .hero-badge-num { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 600; color: var(--gold); line-height: 1; }
+  .hero-badge-text { font-size: 0.55rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gray-mid); margin-top: 4px; }
+
+  .gold-divider { height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); margin: 0 5%; }
+
+  .section { padding: 8rem 5%; }
+  .section-label { font-size: 0.6rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.2rem, 5vw, 4rem); font-weight: 300; color: var(--cream); margin-bottom: 4rem; max-width: 500px; line-height: 1.2; }
+  .section-title em { font-style: italic; color: var(--gold); }
+  .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2px; }
+  .service-card {
+    background: rgba(255,255,255,0.02); border: 1px solid rgba(201,168,76,0.12);
+    padding: 3rem 2rem; transition: all 0.4s; cursor: default; position: relative; overflow: hidden;
+  }
+  .service-card::before {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+    background: var(--gold); transform: scaleX(0); transition: transform 0.4s;
+  }
+  .service-card:hover { background: rgba(201,168,76,0.05); border-color: rgba(201,168,76,0.35); }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-icon { font-size: 1.8rem; margin-bottom: 1.5rem; }
+  .service-num { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 300; color: rgba(201,168,76,0.15); position: absolute; top: 1.5rem; right: 1.5rem; line-height: 1; }
+  .service-name { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; font-weight: 600; }
+  .service-desc { font-size: 0.8rem; color: var(--gray-mid); line-height: 1.9; font-weight: 300; }
+
+  .why-section { padding: 8rem 5%; background: rgba(255,255,255,0.01); }
+  .why-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
+  .why-visual {
+    aspect-ratio: 1; border: 1px solid rgba(201,168,76,0.2);
+    position: relative; display: flex; align-items: center; justify-content: center;
+    background: radial-gradient(ellipse at center, rgba(201,168,76,0.06) 0%, transparent 70%);
+  }
+  .why-visual-center { text-align: center; }
+  .why-big-num { font-family: 'Cormorant Garamond', serif; font-size: 8rem; font-weight: 300; color: var(--gold); line-height: 1; }
+  .why-big-label { font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gray-mid); }
+  .why-corner { position: absolute; width: 20px; height: 20px; border-color: var(--gold); border-style: solid; opacity: 0.5; }
+  .why-corner.tl { top: -1px; left: -1px; border-width: 1px 0 0 1px; }
+  .why-corner.tr { top: -1px; right: -1px; border-width: 1px 1px 0 0; }
+  .why-corner.bl { bottom: -1px; left: -1px; border-width: 0 0 1px 1px; }
+  .why-corner.br { bottom: -1px; right: -1px; border-width: 0 1px 1px 0; }
+  .why-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 3rem; }
+  .stat { border-left: 1px solid rgba(201,168,76,0.3); padding-left: 1.2rem; }
+  .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 400; color: var(--gold); line-height: 1; }
+  .stat-label { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gray-mid); margin-top: 4px; font-weight: 300; }
+
+  .process-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0; margin-top: 4rem; }
+  .process-step { padding: 2.5rem 2rem; border-right: 1px solid rgba(201,168,76,0.1); border-top: 1px solid rgba(201,168,76,0.1); position: relative; }
+  .process-step:last-child { border-right: none; }
+  .step-num { font-family: 'Cormorant Garamond', serif; font-size: 4rem; font-weight: 300; color: rgba(201,168,76,0.12); line-height: 1; margin-bottom: 1rem; }
+  .step-name { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; font-weight: 600; }
+  .step-desc { font-size: 0.78rem; color: var(--gray-mid); line-height: 1.8; font-weight: 300; }
+
+  .testimonials { padding: 8rem 5%; }
+  .testi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-top: 4rem; }
+  .testi-card { border: 1px solid rgba(201,168,76,0.12); padding: 2.5rem; position: relative; }
+  .testi-quote { font-family: 'Cormorant Garamond', serif; font-size: 4rem; color: var(--gold); opacity: 0.3; line-height: 0.5; margin-bottom: 1rem; }
+  .testi-text { font-size: 0.85rem; color: var(--cream); line-height: 1.9; font-weight: 300; font-style: italic; margin-bottom: 2rem; opacity: 0.9; }
+  .testi-author { display: flex; align-items: center; gap: 1rem; }
+  .testi-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--gold-dark), var(--gold)); display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; color: var(--off-black); }
+  .testi-name { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cream); font-weight: 600; }
+  .testi-loc { font-size: 0.65rem; color: var(--gray-mid); margin-top: 2px; letter-spacing: 0.05em; }
+
+  .cta-section {
+    padding: 8rem 5%; text-align: center;
+    background: linear-gradient(to bottom, transparent, rgba(201,168,76,0.04), transparent);
+    border-top: 1px solid rgba(201,168,76,0.1);
+    border-bottom: 1px solid rgba(201,168,76,0.1);
+  }
+  .cta-section .section-label { justify-content: center; display: block; }
+  .cta-section .section-title { margin: 0 auto 1.5rem; text-align: center; }
+  .cta-sub { font-size: 0.8rem; color: var(--gray-mid); max-width: 400px; margin: 0 auto 3rem; line-height: 2; font-weight: 300; }
+  .cta-form { display: flex; gap: 0; max-width: 480px; margin: 0 auto; }
+  .cta-form input { flex: 1; background: rgba(255,255,255,0.04); border: 1px solid rgba(201,168,76,0.2); border-right: none; padding: 1rem 1.5rem; font-size: 0.78rem; color: var(--cream); font-family: 'Montserrat', sans-serif; outline: none; }
+  .cta-form input::placeholder { color: var(--gray-mid); }
+  .cta-form input:focus { border-color: rgba(201,168,76,0.5); }
+  .cta-form button { background: var(--gold); color: var(--off-black); border: none; padding: 1rem 2rem; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700; cursor: pointer; font-family: 'Montserrat', sans-serif; transition: background 0.3s; white-space: nowrap; }
+  .cta-form button:hover { background: var(--gold-light); }
+
+  footer {
+    padding: 4rem 5%;
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4rem;
+    border-top: 1px solid rgba(201,168,76,0.1);
+  }
+  .footer-brand .logo { display: block; margin-bottom: 1rem; }
+  .footer-tagline { font-size: 0.72rem; color: var(--gray-mid); line-height: 1.9; font-weight: 300; max-width: 220px; }
+  .footer-head { font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; font-weight: 600; }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+  .footer-links a { font-size: 0.75rem; color: var(--gray-mid); text-decoration: none; transition: color 0.3s; font-weight: 300; }
+  .footer-links a:hover { color: var(--cream); }
+  .footer-contact-item { font-size: 0.75rem; color: var(--gray-mid); margin-bottom: 0.75rem; line-height: 1.7; font-weight: 300; }
+  .footer-bottom { padding: 1.5rem 5%; border-top: 1px solid rgba(255,255,255,0.04); display: flex; justify-content: space-between; align-items: center; }
+  .footer-copy { font-size: 0.65rem; color: rgba(136,136,128,0.5); letter-spacing: 0.1em; }
+
+  @media (max-width: 768px) {
+    .why-inner { grid-template-columns: 1fr; }
+    footer { grid-template-columns: 1fr; gap: 2.5rem; }
+    .nav-links { display: none; }
+    .hero h1 { font-size: 3rem; }
+    .hero-badge { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">WAASH<span>UP</span></div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#why">Our Promise</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#testimonials">Residents</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Book a Wash</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-line"></div>
+  <p class="hero-eyebrow">Premium Residential Car Care</p>
+  <h1>Your Car.<br><em>Perfected.</em><br>At Your Door.</h1>
+  <p class="hero-sub">Waashup brings white-glove automotive care directly to high-end residential societies — on your schedule, at your doorstep.</p>
+  <div class="hero-actions">
+    <a href="#contact" class="btn-primary">Schedule Your Service</a>
+    <a href="#services" class="btn-ghost">Explore Services</a>
+  </div>
+  <div class="hero-badge">
+    <div class="hero-badge-inner">
+      <div class="hero-badge-num">5★</div>
+      <div class="hero-badge-text">Rated Service</div>
+    </div>
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<section class="section" id="services">
+  <p class="section-label">What We Offer</p>
+  <h2 class="section-title">Care Crafted for the <em>Discerning</em> Resident</h2>
+  <div class="services-grid">
+    <div class="service-card">
+      <span class="service-num">01</span>
+      <div class="service-icon">✦</div>
+      <p class="service-name">Exterior Detailing</p>
+      <p class="service-desc">Hand-wash, clay bar treatment, and ceramic wax application for a showroom-grade finish every single time.</p>
+    </div>
+    <div class="service-card">
+      <span class="service-num">02</span>
+      <div class="service-icon">✦</div>
+      <p class="service-name">Interior Refresh</p>
+      <p class="service-desc">Deep vacuum, leather conditioning, dashboard detailing and odour elimination — a sanctuary reimagined.</p>
+    </div>
+    <div class="service-card">
+      <span class="service-num">03</span>
+      <div class="service-icon">✦</div>
+      <p class="service-name">Signature Full Detail</p>
+      <p class="service-desc">Our comprehensive head-to-toe treatment combining interior and exterior care for the ultimate result.</p>
+    </div>
+    <div class="service-card">
+      <span class="service-num">04</span>
+      <div class="service-icon">✦</div>
+      <p class="service-name">Monthly Membership</p>
+      <p class="service-desc">Priority scheduling, locked-in pricing, and dedicated care specialists assigned to your vehicle.</p>
+    </div>
+  </div>
+</section>
+
+<section class="why-section" id="why">
+  <div class="why-inner">
+    <div>
+      <p class="section-label">Why Waashup</p>
+      <h2 class="section-title">A New <em>Standard</em> in Residential Care</h2>
+      <p style="font-size: 0.8rem; color: var(--gray-mid); line-height: 2; font-weight: 300; max-width: 400px;">We exist because premium vehicles deserve premium care — and premium residents deserve their time back. No queues, no travel, no compromise.</p>
+      <div class="why-stats">
+        <div class="stat">
+          <div class="stat-num">500+</div>
+          <div class="stat-label">Vehicles Serviced</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">25+</div>
+          <div class="stat-label">Partner Societies</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">98%</div>
+          <div class="stat-label">Satisfaction Rate</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">3hr</div>
+          <div class="stat-label">Average Turnaround</div>
+        </div>
+      </div>
+    </div>
+    <div class="why-visual">
+      <div class="why-corner tl"></div>
+      <div class="why-corner tr"></div>
+      <div class="why-corner bl"></div>
+      <div class="why-corner br"></div>
+      <div class="why-visual-center">
+        <div class="why-big-num">W</div>
+        <div class="why-big-label">Waashup Standard</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="process">
+  <p class="section-label">How It Works</p>
+  <h2 class="section-title">Effortless from <em>Start</em> to Finish</h2>
+  <div class="process-list">
+    <div class="process-step">
+      <div class="step-num">01</div>
+      <p class="step-name">Book Online</p>
+      <p class="step-desc">Choose your package, pick a time slot, and confirm your society address in under two minutes.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-num">02</div>
+      <p class="step-name">We Arrive</p>
+      <p class="step-desc">Our trained specialist arrives at your gate with professional-grade equipment, fully self-sufficient.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-num">03</div>
+      <p class="step-name">We Detail</p>
+      <p class="step-desc">Every inch is attended to with premium products — while you relax in the comfort of your home.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-num">04</div>
+      <p class="step-name">Inspect & Approve</p>
+      <p class="step-desc">We walk you through the result. 100% satisfaction is not a promise — it is our standard.</p>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials" id="testimonials">
+  <p class="section-label">Resident Stories</p>
+  <h2 class="section-title">Trusted by <em>Discerning</em> Homeowners</h2>
+  <div class="testi-grid">
+    <div class="testi-card">
+      <div class="testi-quote">"</div>
+      <p class="testi-text">Waashup has completely changed how I think about car maintenance. The detailing quality rivals the best in the city — and it happens right in my parking spot.</p>
+      <div class="testi-author">
+        <div class="testi-avatar">RK</div>
+        <div>
+          <div class="testi-name">Rahul Khanna</div>
+          <div class="testi-loc">Prestige Lakeside Habitat, Bangalore</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-quote">"</div>
+      <p class="testi-text">I've been a monthly member for six months. The team knows my car better than the dealership does. Impeccable service, every single time.</p>
+      <div class="testi-author">
+        <div class="testi-avatar">SM</div>
+        <div>
+          <div class="testi-name">Sunita Mehta</div>
+          <div class="testi-loc">DLF The Crest, Gurugram</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-quote">"</div>
+      <p class="testi-text">Worth every rupee. My Range Rover looks like it just left the showroom after every session. The convenience alone makes it a no-brainer.</p>
+      <div class="testi-author">
+        <div class="testi-avatar">AP</div>
+        <div>
+          <div class="testi-name">Arjun Pillai</div>
+          <div class="testi-loc">Sobha Dream Acres, Hyderabad</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section" id="contact">
+  <span class="section-label">Get Started</span>
+  <h2 class="section-title">Ready for the <em>Waashup</em> Experience?</h2>
+  <p class="cta-sub">Enter your email and we'll reach out to schedule your first complimentary consultation.</p>
+  <div class="cta-form">
+    <input type="email" placeholder="Your email address" />
+    <button type="button">Request a Booking</button>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-brand">
+    <span class="logo">WAASH<span>UP</span></span>
+    <p class="footer-tagline">Setting new standards in residential automotive care across India's finest communities.</p>
+  </div>
+  <div>
+    <p class="footer-head">Services</p>
+    <ul class="footer-links">
+      <li><a href="#">Exterior Detailing</a></li>
+      <li><a href="#">Interior Refresh</a></li>
+      <li><a href="#">Full Detail Package</a></li>
+      <li><a href="#">Monthly Membership</a></li>
+    </ul>
+  </div>
+  <div>
+    <p class="footer-head">Contact</p>
+    <p class="footer-contact-item">hello@waashup.in</p>
+    <p class="footer-contact-item">+91 98765 43210</p>
+    <p class="footer-contact-item">Serving premium residential societies across Hyderabad, Bangalore & Gurugram</p>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <span class="footer-copy">© 2026 Waashup Company. All rights reserved.</span>
+  <span class="footer-copy">Premium Residential Car Care</span>
+</div>
+
+</body>
+</html>
